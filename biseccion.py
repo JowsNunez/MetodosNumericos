@@ -1,3 +1,11 @@
+# 
+# biseccion.py
+#
+# @Author Jose Alfredo Núñez Aguirre - 000000181930
+#
+# Programa que encuentra las Raices utilizando el método de Biseccion
+# de la funcion f(x) = sen(x) - x^2 
+
 import math
 
 
