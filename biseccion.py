@@ -48,12 +48,6 @@ def biseccion(xi,xf,errMax):
         # se calcula la multiplicacion de la funciones:  f(xi) * f(xr)  y se guarda en la variable xixr
         xixr =f(xi) * f(xr)
       
-        # se guarda el valor de xr en el arreglo actual para determinar el xr anterior de acuerdo al indice menos 1    
-        actual.append(xr)
-        
-        # se calcula la multiplicacion de la funciones:  f(xi) * f(xr)  y se guarda en la variable xixr
-        xixr =f(xi) * f(xr)
-
         
         # Si el iterador es mayor a cero se realiza la operación que nos da el valor de el Error Absoluto
         if iterador > 0:
