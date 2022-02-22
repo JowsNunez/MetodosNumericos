@@ -13,11 +13,14 @@ import java.util.Scanner;
  * @author Jose Alfredo Nuñez Aguirre 00000181930
  */
 public class EliminacionGauss {
-
+    // Arreglo bidimensional donde se guardan los valores de las ecuaciones
     public static Double ecuaciones[][];
+    // Arreglo unidimensional donde se guardan los resultados
     public static Double resultados[];
-    public static String format = "00.0000";
-    // Constante para dar formata la salida de los resultados
+
+    // Constante con formato de salida
+    public static final String format = "00.0000";
+    // Constante para dar formato la salida de los resultados
     public static final DecimalFormat FORMATEADOR = new DecimalFormat(format);
 
     /**
@@ -29,6 +32,8 @@ public class EliminacionGauss {
         despliegaSolucion();
     }
 
+
+    // Metodo que implementa las funciones para realizar el metodo de eliminacion de gauss
     public static void eliminacionGauss() {
         pivotea();
         eliminacionAdelante();
@@ -65,14 +70,19 @@ public class EliminacionGauss {
         }
     }
 
+    // Metodo que ordena de Mayor a menor los valores para que el pivote sea mayor que los elementos de abajp
     public static void pivotea() {
+
         for (int i = 0; i < ecuaciones.length; i++) {
             for (int j = 0; j < ecuaciones[i].length; j++) {
                 if (j + 1 < ecuaciones.length) {
-
+                    // si el valor que se encuentra en el arreglo [j][0] es menor al siguiente entonces se baja el menor y se sube el mayor arreglo[j+1][0]
                     if (ecuaciones[j][0] < ecuaciones[j + 1][0]) {
+                        // variable auxiliar que guarda el valor actal para realizar el intercambio de posiciones
                         Double aux[] = ecuaciones[j];
+                        // se intercambia el elemento de la posicion proxima al actual
                         ecuaciones[j] = ecuaciones[j + 1];
+                        // se cstablece el nuevo valor de la posicion proxima con el valor de la variable auxiliar = actual
                         ecuaciones[j + 1] = aux;
                     }
 
@@ -83,25 +93,26 @@ public class EliminacionGauss {
 
     }
 
+    // Método que implementa la etapa de Eliminación hacia Adelante.
     public static void eliminacionAdelante() {
-
+        // variable indice con el tamaño del arreglo bidimensional
         int indice = ecuaciones.length;
 
         for (int k = 0; k < indice; k++) {
 
             for (int i = k + 1; i < indice; i++) {
-
+               
                 double factor = ecuaciones[i][k] / ecuaciones[k][k];
 
                 for (int j = k; j <= indice; j++) {
-
-                    ecuaciones[i][j] = ecuaciones[i][j] - ecuaciones[k][j] * factor;
+                    ecuaciones[i][j] = ecuaciones[i][j] -  ( factor * ecuaciones[k][j]);
                 }
             }
         }
 
     }
-
+    // Método que implementa la etapa de Substitución hacia Atrás recorriendo de forma descendente el arreglo
+    // regresa el reasultado como un arreglo unidimensional
     public static Double[] sustitucionAtras() {
         int indice = ecuaciones.length;
         Double[] resultado = new Double[indice];
@@ -125,7 +136,7 @@ public class EliminacionGauss {
         return resultado;
     }
 
-
+// Metodo que imprime la solución
     public static void despliegaSolucion() {
         for (int i = 0; i < resultados.length; i++) {
             System.out.printf("X_%d=  %s\t", i + 1, FORMATEADOR.format(resultados[i]));
