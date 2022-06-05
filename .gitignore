@@ -2,3 +2,7 @@
 */nbproject
 */build
 */vscode
+
+.idea
+*.xml
+*.iml
