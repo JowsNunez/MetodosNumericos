@@ -1,9 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 
-public class Raices {
+public class Tabula {
     // variable inicial
     public static double inicio;
 
@@ -14,8 +13,6 @@ public class Raices {
     public static double incremento;
 
     public static void main(String[ ]args)   {
-
-
 
 
         try {
@@ -41,14 +38,14 @@ public class Raices {
             System.err.println("NumberFormat: "+e.getMessage());
         }
         finally {
-            System.out.println("\'-----------------------\'");
+            System.out.println("'-----------------------'");
         }
     }
 
 
     public static double f(double x){
-        // Se calcula x^3 + 2x^2 + 7 -20 y se devuelve el valor obtenido como un tipo double
-        return  Math.pow(x,3) + (2*Math.pow(x,2)) + (7*x) - 20;
+        // Se calcula -2.1 + 6.21x – 3.9x^2+ 0.667x^3 y se devuelve el valor obtenido como un tipo double
+        return  -2.1 + (6.21*x) - (3.9* Math.pow(x,2))+ (0.667 * Math.pow(x,3));
     }
 
     public static void tabula(double inicio,double fin, double incremento){
@@ -60,11 +57,11 @@ public class Raices {
         //  mientras que inicio sea menorigual que fin el ciclo continua.
         while(inicio <= fin){
 
-            // se calcula la ecuacion x^3 + 2x^2 + 7x - 20 y se guarda el valor en la variable resultado
+            // se calcula la ecuacion -2.1 + 6.21x – 3.9x^2+ 0.667x^3  y se guarda el valor en la variable resultado
             resultado = f(inicio);
 
             // se imprime el resultado
-            System.out.printf("%.2f\t f(%.2f)= %.2f\n",inicio,inicio,resultado);
+            System.out.printf("%.4f\t f(%.2f)= %.4f\n",inicio,inicio,resultado);
 
             // Se aumenta el valor de inicio de acuerdo al incremento establecido
             // y se guarda el nuevo valor.

@@ -97,7 +97,7 @@ public class Biseccion {
 
             // formato de la tabla usando 6 decimales.
             System.out.printf("%-11d | %9.6f | %9.6f | %9.6f | %9.6f | %9.6f | %9.6f  \n" ,
-                    contador,xi,xd,xm,fxi,fxd,fxm,(Math.abs(fxm)*100));
+                    contador,xi,xd,xm,fxi,fxd,fxm);
             System.out.println("-------------------------------------------------------------------------------------");
 
 
