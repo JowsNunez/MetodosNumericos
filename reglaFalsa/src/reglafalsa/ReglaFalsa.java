@@ -8,23 +8,30 @@ package reglafalsa;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Locale;
 
 /**
- *
- * @author el_fr
+ * @Class ReglaFalsa 
+ * Programa que determina una de las raíces reales de la
+ * función: f(x) = (1 – 0.6x)/x, empleando el Método de la Regla Falsa. El
+ * programa pide los valores inicial y final del intervalo de búsqueda y el
+ * error aproximado máximo. El programa calcula y despliega los valores de la
+ * raíz, el valor de la función para esa raíz y el número de iteraciones
+ * requerida para encontrar la raíz.
+ * @author José Alfredo Nuñez Aguirre
  */
 public class ReglaFalsa {
 
     public static void main(String args[]) throws ParseException {
 
+        System.err.println(" * Este Programa determina una de las raíces reales de la función: f(x) = (1 – 0.6x)/x,\n"
+                + " * empleando el Método de la Regla Falsa. El programa pide los valores inicial y final del\n"
+                + " * intervalo de búsqueda y el error aproximado máximo. El programa calcula y despliega\n"
+                + " * los valores de la raíz, el valor de la función para esa raíz y el número de iteraciones requerida\n"
+                + " * para encontrar la raíz.\n*********************************************\n");
+
         try {
-            
-             
-               
+
             // objeto para obtener la entrada en consola
             BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
 
@@ -34,11 +41,11 @@ public class ReglaFalsa {
             System.out.print("Ingresa el valor x final: ");
             double xd = Double.parseDouble(entrada.readLine());
 
-            System.out.print("Ingresa el valor del Error Maximo: ");
+            System.out.print("Ingresa el valor del Error: ");
             double error = Double.parseDouble(entrada.readLine());
 
-            // se llama al metodo biseccion para hacer
-            biseccion(xi, xd, error);
+            // se llama al metodo reglaFalsa para realizar la busque la raiz
+            reglaFalsa(xi, xd, error);
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -49,44 +56,40 @@ public class ReglaFalsa {
     }
 
     /**
-     * Metodo f que calcula la ecuaciojn -2.1 + 6.21x - 3.9 (x)^2 + 0.667(x)^3
+     * Metodo f que calcula la ecuacion (1 – 0.6x)/x
      *
      * @param x representa el valor a sustituir en X
      * @return devuelve el resultado de tipo double obtenido en la ecuacion.
      */
     public static double f(double x) {
-//        return -2.1 + (6.21* x) - (3.9 *Math.pow(x,2)) + (0.667*Math.pow(x,3));
-  //      return Math.pow(x, 3) + (2 * Math.pow(x, 2) + (7 * x) - 20);
-            return Math.pow(x,3) - (7.014*Math.pow(x,2)) -(13.324*x) -3.548;
+
+        return (1 - (0.6 * x)) / x;
+
     }
 
     /**
-     * Metodo biseccion, busca las raices de la ecuacion -2.1 + 6.21x - 3.9
-     * (x)^2 + 0.667(x)^3 e imprime una tabla.
+     * Metodo reglaFalsa, busca las raices de la ecuacion f(x)=(1 – 0.6x)/x e
+     * imprime una tabla.
      *
      * @param xi Representa el valor de X izquierda o X inicial.
      * @param xd Representa el valor de X derecha o X final
-     * @param errMax Representa el valor del máximo error en porcentaje
+     * @param error Representa el valor del error en decimales.
      */
-    public static void biseccion(double xi, double xd, double errMax) throws ParseException {
-
-        DecimalFormat dcFormat = new DecimalFormat("0.00000#");
-        
-
-        // el valor ingresado se divide entre 100 para obtener el error maximo en decimales
-        // ejemplo se ingresa si se ingresa 0.1, se calcula el error -> 0.1/100 = 0.001.
-        errMax = errMax / 100;
+    public static void reglaFalsa(double xi, double xd, double error) {
 
         // variable fxi donde se guarda el valor de el resultado de f(xi);
-        double fxi = 0;
+        double fxi;
+        
         // variable fxd donde se guarda el valor de el resultado de f(xd);
-        double fxd = 0;
-        // variable xm donde se guarda el valor de la suma xi +  xd sobre 2
-        double xm = ((xi * fxd) - (xd * fxi)) / (xd - xi);
-
-        // variable fxm donde se guarda el valor de el resultado de f(xm)
-        double fxm = f(xm);
-
+        double fxd;
+        
+        // variable xm /= ((xi * fxd) - (xd * fxi)) / (fxd - fxi);
+        double xm;
+        
+        // variable fxm donde se guarda el valor de el resultado de f(xm) se inicializa en uno como auxiliar 
+        //para que entre a while y dentro de while se calcula el primer resultado de manera correcta.
+        double fxm = 1;
+        
         // contador auxiliar para el conteo de las iteraciones realizadas.
         int contador = 0;
 
@@ -94,23 +97,24 @@ public class ReglaFalsa {
                 "interacion", "xini", "xfin", "xm", "f(xini)", "f(xfin)", "f(xm)");
         System.out.println("-------------------------------------------------------------------------------------");
 
-        // mientras el valor absoluto de xm sea mayor que el error Maximo continuan las operaciones.
-        while (Math.abs(fxm) > errMax) {
+        // mientras el valor absoluto de xm sea mayor que el error  continuan las operaciones.
+        while (Math.abs(fxm) > error) {
 
-            // se calcula xm
             // se calcula f(xi) con la funcion f(x)
             fxi = f(xi);
+            
             // se calcula f(xd) con la funcion f(x)
             fxd = f(xd);
-            // se calcula f(xm) con la funcion f(x)
-
+            
+            // se calcula xm con la ecuacion (xi * fxd) - (xd * fxi)) / (fxd - fxi)
             xm = ((xi * fxd) - (xd * fxi)) / (fxd - fxi);
+
+            // se calcula el f(xm) con la funcion f(x)
             fxm = f(xm);
 
-            // formato de la tabla usando 6 decimales.
-            System.out.format("%-11d | %9s | %9s | %9s | %9s | %9s | %9s  \n",
-                    contador, dcFormat.format(xi), dcFormat.format(xd), dcFormat.format(xm), dcFormat.format(fxi),
-                    dcFormat.format(fxd), dcFormat.format(fxm));
+            // formato de la tabla usando 4 decimales.
+            System.out.format("%-11d | %9.4f | %9.4f | %9.4f | %9.4f | %9.4f | %9.4f |  \n",
+                    contador, xi, xd, xm, fxi, fxd, fxm);
             System.out.println("-------------------------------------------------------------------------------------");
 
             // Si f(xm) es menor a 0 entonces el valor de xm pasa a ser el nuevo valor de xi
@@ -131,7 +135,7 @@ public class ReglaFalsa {
                 }
 
             }
-
+            // se aumenta el número de iteraciones
             contador++;
 
         }
