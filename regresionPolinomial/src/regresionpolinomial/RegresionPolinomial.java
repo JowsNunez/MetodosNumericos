@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 public class RegresionPolinomial {
 
     public static int cantidad;
-    public static int grado = 3;
+    public static int grado = 2;
 
     // ejemplo por defecto
     public static double puntos[][] = {
